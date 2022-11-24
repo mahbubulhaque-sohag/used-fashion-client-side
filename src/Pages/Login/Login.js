@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthProvider';
 
 const Login = () => {
 
     const { register, handleSubmit } = useForm();
-    const {login} = useContext(authContext);
+    const {login, googleLogin} = useContext(authContext);
+    const navigte = useNavigate();
    
     const handleLogin = data =>{
         console.log(data)
@@ -16,6 +17,18 @@ const Login = () => {
             const user = result.user;
             console.log(user)
             toast.success('login successfully')
+            navigte('/')
+        })
+        .catch(err=>{
+            console.error(err)
+        })
+    }
+
+    const handleGoogleLogin = () =>{
+        googleLogin()
+        .then(result=>{
+            const user = result.user;
+            console.log(user)
         })
         .catch(err=>{
             console.error(err)
@@ -43,7 +56,7 @@ const Login = () => {
             </form>
             <p className='mt-1'>New to this site? <Link className='text-blue-600/100' to='/register'>Register</Link></p>
             <p className='text-center'>or</p>
-            <button className='btn btn-sm btn-primary mt-1 w-full'>Sign in with Google</button>
+            <button onClick={handleGoogleLogin} className='btn btn-sm btn-primary mt-1 w-full'>Sign in with Google</button>
             </div>
         </div>
     );

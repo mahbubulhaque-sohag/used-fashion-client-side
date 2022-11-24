@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import logo from '../../../assets/logo/logo2.png';
 import { authContext } from '../../../context/AuthProvider';
 
