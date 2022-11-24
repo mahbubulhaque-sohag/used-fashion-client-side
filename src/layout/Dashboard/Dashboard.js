@@ -8,7 +8,7 @@ const Dashboard = () => {
   <input id="mh-drawer" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content flex flex-col items-center justify-center">
     <Outlet/>
-    <label htmlFor="mh-drawer" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+    
   </div> 
   <div className="drawer-side">
     <label htmlFor="mh-drawer" className="drawer-overlay"></label> 
