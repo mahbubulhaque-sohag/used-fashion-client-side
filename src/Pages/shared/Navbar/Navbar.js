@@ -11,7 +11,7 @@ const Navbar = () => {
     const handleLogout = () => {
         logout()
             .then(() => {
-                toast('logout successfully')
+                toast.success('logout successfully')
             })
             .catch(err => console.error(err))
     }
@@ -53,3 +53,30 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+// [
+//     {
+//         "categoryName":"Men's fashion",
+//         "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiJMHpg9001H-MmrsqDTBEHSFpym1X5OaxBg&usqp=CAU",
+//         "description":"Short used but like new, branded and latest men's fashion collection"
+//     },
+//     {
+//         "categoryName":"Ladies fashion",
+//         "img":"https://d2line.com/thatlook/wp-content/uploads/sites/4/2022/02/40s-women-fashion-d2line-tips.png",
+//         "description":"Short used but like new, branded and latest women's fashion collection"
+//     },
+//     {
+//         "categoryName":"kid's fasion",
+//         "img":"https://img.freepik.com/free-photo/full-length-portrait-cute-little-kid-girl-stylish-jeans-clothes-smiling-standing-white-kids-fashion-concept_155003-20300.jpg?w=2000",
+//         "description":"Short used but like new, branded and latest kid's fashion collection"
+//     },
+// ]
