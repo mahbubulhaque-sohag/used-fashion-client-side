@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo/logo2.png';
+import { authContext } from '../../../context/AuthProvider';
 
 const Navbar = () => {
+
+    const { logout, user } = useContext(authContext);
+
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                toast('logout successfully')
+            })
+            .catch(err => console.error(err))
+    }
 
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link>Blog</Link></li>
-        <li><Link to='/register'>Register</Link></li>
-        <li><Link to='/login'>Login</Link></li>
-    </>
+        {
+            user?.uid ? <>
+                <li><button onClick={handleLogout}>Logout</button></li>
+            </> : <>
+                <li><Link to='/register'>Register</Link></li>
+                <li><Link to='/login'>Login</Link></li>
+            </>
+        } </>
     return (
         <div className="navbar bg-base-100 justify-around">
             <div className="navbar-start">
@@ -22,13 +39,13 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='flex'>
-                    <img src={logo} alt='website-logo'/>
-                <Link to='/' className="btn btn-ghost normal-case  font-bold text-4xl text-pink-600">Mh Fashion</Link>
+                    <img src={logo} alt='website-logo' />
+                    <Link to='/' className="btn btn-ghost normal-case  font-bold text-4xl text-pink-600">Mh Fashion</Link>
                 </div>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                  {menuItems}
+                    {menuItems}
                 </ul>
             </div>
         </div>
