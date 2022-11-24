@@ -1,14 +1,37 @@
-import React, { useState } from 'react';
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import toast from "react-hot-toast";
+import { Link, useNavigate } from 'react-router-dom';
+import { authContext } from "../../context/AuthProvider";
 
 const Register = () => {
-
     const { register, handleSubmit } = useForm();
-   
+    const {createUser, updateUserProfile, user} = useContext(authContext);
+    const navigte = useNavigate();
+
     const handleRegister = data =>{
-        console.log(data)
+        console.log(data);
+        createUser(data.email, data.password)
+        .then(result=>{
+            const user = result.user;
+            console.log(user);
+            toast.success('User created successfully');
+            handleUpdateProfile(data.name)
+            navigte('/');
+        })
+        .catch(err =>{
+            console.log(err)
+        })
     }
+
+    const handleUpdateProfile = (name) => {
+        const profile = {
+          displayName : name
+        }
+        updateUserProfile(profile)
+        .then(()=>{})
+        .catch((error)=>console.error(error))
+      }
 
     return (
         <div className='h-[800px] flex justify-center items-center font-bold' >
@@ -17,7 +40,7 @@ const Register = () => {
             <form onSubmit={handleSubmit(handleRegister)}>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Name</span></label>
-                    <input type="text"  {...register("Name")} placeholder="Type your name" className="input input-bordered w-full max-w-xs" />
+                    <input type="text"  {...register("name")} placeholder="Type your name" className="input input-bordered w-full max-w-xs" />
                 </div>
 
                 <div className="form-control w-full max-w-xs">
