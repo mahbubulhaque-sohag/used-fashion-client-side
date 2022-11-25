@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ProductCard = ({product}) => {
+const ProductCard = ({ product }) => {
 
-    const{Original_Price, Resell_Price,category, description, image, location, name, sellerEmail, sellerName, years_of_purchase, _id, postDate} = product;
+    const { Original_Price, Resell_Price, category, description, image, location, name, sellerEmail, sellerName, years_of_purchase, _id, postDate } = product;
 
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
@@ -16,8 +16,8 @@ const ProductCard = ({product}) => {
                 <h3>Seller: {sellerName}</h3>
                 <h3>Email: {sellerEmail}</h3>
                 <p>{description}</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Book Now</button>
+                <div className="card-actions">
+                    <label htmlFor="product-booking-modal" className="btn btn-secondary">Book Now</label>
                 </div>
             </div>
         </div>

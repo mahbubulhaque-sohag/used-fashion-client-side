@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import BookingModal from '../BookingModal/BookingModal';
 import ProductCard from './ProductCard';
 
 const Products = () => {
@@ -28,6 +29,7 @@ const Products = () => {
                     product={product}></ProductCard>)
                 }
             </div>
+            <BookingModal></BookingModal>
         </div>
     );
 };
