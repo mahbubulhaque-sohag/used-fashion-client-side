@@ -6,6 +6,7 @@ import AddProducts from '../../Pages/DashboardPage/AddProducts';
 import DashboardPage from '../../Pages/DashboardPage/DashboardPage';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
+import Products from '../../Pages/Products/Products';
 import Register from '../../Pages/Register/Register';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog/>
+            },
+            {
+                path: '/products/:id',
+                element: <Products/>
             },
             {
                 path: '/dashboard',

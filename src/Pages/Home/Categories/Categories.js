@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Categories = ({category}) => {
     const {categoryName, description, img, _id} =category;
@@ -10,7 +11,7 @@ const Categories = ({category}) => {
           <h2 className="card-title">{categoryName}</h2>
           <p>{description}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-outline btn-secondary"><span className='text-bold'>All Products</span></button>
+           <Link to={`/products/${_id}`}> <button className="btn btn-outline btn-secondary"><span className='text-bold'>All Products</span></button></Link>
           </div>
         </div>
       </div>

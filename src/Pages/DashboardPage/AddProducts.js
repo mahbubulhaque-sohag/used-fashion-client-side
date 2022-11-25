@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
+import toast from 'react-hot-toast';
 import { authContext } from '../../context/AuthProvider';
 
 const AddProducts = () => {
@@ -52,6 +53,7 @@ const AddProducts = () => {
                     .then(res=> res.json())
                     .then(result=>{
                         console.log(result)
+                        toast.success('Product added successfully')
                     })
             }
         })
@@ -59,7 +61,7 @@ const AddProducts = () => {
     return (
         <form className='my-10' onSubmit={handleSubmit(handleAddProducts)}>
                  <div className="form-control w-full max-w-xs">
-                    <label className="label"><span className="label-text">Name</span></label>
+                    <label className="label"><span className="label-text">Product Name</span></label>
                     <input type="text"  {...register("name")}  className="input input-bordered w-full max-w-xs" />
                 </div>
 
