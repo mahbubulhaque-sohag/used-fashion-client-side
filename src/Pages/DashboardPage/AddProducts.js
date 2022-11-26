@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthProvider';
 
 const AddProducts = () => {
     const { register, handleSubmit, data } = useForm();
     const {user} = useContext(authContext);
     // console.log(user)
+    const navigate = useNavigate();
 
    const state={
         curDT : new Date().toLocaleString(),
@@ -54,6 +56,7 @@ const AddProducts = () => {
                     .then(result=>{
                         console.log(result)
                         toast.success('Product added successfully')
+                        navigate('/dashboard/myProducts')
                     })
             }
         })

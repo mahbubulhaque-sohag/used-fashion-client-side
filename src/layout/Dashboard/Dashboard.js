@@ -13,7 +13,7 @@ const Dashboard = () => {
           <label htmlFor="mh-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 text-base-content">
             <li><Link to='/dashboard/addProducts'>Add Products</Link></li>
-            <li><Link>Sidebar Item 2</Link></li>
+            <li><Link to='/dashboard/myProducts'>My Products</Link></li>
           </ul>
 
         </div>
