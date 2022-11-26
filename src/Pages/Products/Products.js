@@ -9,6 +9,7 @@ const Products = () => {
   const category = from.category;
 
   const [products, setProducts] = useState([]);
+  const [item, setItem] = useState(null);
 
     useEffect( ()=>{
       fetch(`http://localhost:5000/products/${category.categoryName}`)
@@ -17,7 +18,7 @@ const Products = () => {
         console.log(data)
         setProducts(data)
       })
-    },[])
+    },[category])
 
     return (
         <div className='my-10'>
@@ -26,10 +27,19 @@ const Products = () => {
                 {
                     products.map(product => <ProductCard
                     key={product._id}
-                    product={product}></ProductCard>)
+                    product={product}
+                    setItem={setItem}></ProductCard>)
                 }
             </div>
-            <BookingModal></BookingModal>
+            {
+              item && products.map(product=><BookingModal 
+              key={product._id}
+              product={product}
+              setProducts={setProducts}
+              setItem={setItem}
+              ></BookingModal>)
+            }
+            
         </div>
     );
 };
