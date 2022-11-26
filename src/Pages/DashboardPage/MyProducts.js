@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { authContext } from '../../context/AuthProvider';
 import { stateContext } from '../../context/StateProvider';
-import Advertise from '../Home/Advertise/Advertise';
 
 const MyProducts = () => {
     const {user} = useContext(authContext);
+    // const [disable, setDisable] = React.useState(false);
+
     const {email} = user;
 
     const {advertisement, setAdvertisement} = useContext(stateContext)
@@ -20,13 +21,27 @@ const MyProducts = () => {
         }
       })
     console.log(advertisement)
-      if (isLoading) return 'Loading...'
+      if (isLoading) return <progress className="progress w-56"></progress>
     
       if (error) return 'An error has occurred: ' + error.message
 
       const handleSetAdvertise = product =>{
-        const newAdvertise = [...advertisement, product]
-        setAdvertisement(newAdvertise)
+        console.log(product)
+       
+        // const newAdvertise = [...advertisement, product]
+        // setAdvertisement(newAdvertise)
+        fetch('http://localhost:5000/advertisment',{
+          method: 'POST',
+          headers: {
+            'content-type' : 'application/json'
+        },
+        body: JSON.stringify(product)
+        })
+        .then(res => res.json())
+        .then(result=>{
+            console.log(result)
+            // setDisable(true)
+          })
       }
     
     return (
@@ -46,10 +61,10 @@ const MyProducts = () => {
               <th></th>
             </tr>
           </thead>
-          {
-                products.map(product =>  <tbody key={product._id} product={product} setAdvertisement={setAdvertisement}>
-           
-                    <tr>
+         
+                 <tbody>
+           {
+            products.map(product =><tr  key={product._id} product={product} setAdvertisement={setAdvertisement}>
                       <th>
                         <label>
                           <input type="checkbox" className="checkbox" />
@@ -76,11 +91,13 @@ const MyProducts = () => {
                       </td>
                       <td>Purple</td>
                       <th>
-                        <button onClick={()=>handleSetAdvertise(product)} className="btn btn-ghost btn-xs">Make Advertise</button>
+                       
+                        <button onClick={()=>handleSetAdvertise(product)} className="btn btn-ghost btn-xs" >Make Advertise</button>
                       </th>
-                    </tr>
-                  </tbody>)
-              }
+                    </tr>)
+}
+                  </tbody>
+              
         
         </table>
       </div>
