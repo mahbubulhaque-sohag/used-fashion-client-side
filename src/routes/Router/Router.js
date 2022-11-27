@@ -3,6 +3,7 @@ import Dashboard from '../../layout/Dashboard/Dashboard';
 import Main from '../../layout/Main/Main';
 import Blog from '../../Pages/Blog/Blog';
 import AddProducts from '../../Pages/DashboardPage/AddProducts';
+import AllUsers from '../../Pages/DashboardPage/AllUsers';
 import DashboardPage from '../../Pages/DashboardPage/DashboardPage';
 import MyProducts from '../../Pages/DashboardPage/MyProducts';
 import Home from '../../Pages/Home/Home/Home';
@@ -10,6 +11,7 @@ import Login from '../../Pages/Login/Login';
 import Products from '../../Pages/Products/Products';
 import Register from '../../Pages/Register/Register';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import SellerRoute from '../SellerRoute/SellerRoute';
 
 export const router = createBrowserRouter([
     {
@@ -51,6 +53,10 @@ export const router = createBrowserRouter([
                 {
                     path: '/dashboard/myProducts',
                     element: <MyProducts/>
+                },
+                {
+                    path: '/dashboard/users',
+                    element: <AllUsers/>
                 },
                ]         
             },

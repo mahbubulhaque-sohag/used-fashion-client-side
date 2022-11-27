@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { stateContext } from '../../../context/StateProvider';
@@ -19,6 +20,22 @@ const Home = () => {
             })
     }, [])
 
+
+    const { isLoading, error, data:advertisements } = useQuery({
+        queryKey: ['advertisement',],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/advertisement`);
+            const data = await res.json();
+            return data
+        }
+      })
+    console.log(advertisements)
+      if (isLoading) return <progress className="progress w-56"></progress>
+    
+      if (error) return 'An error has occurred: ' + error.message
+
+
+
     return (
         <div className='mx-6'>
             <Banner />
@@ -33,16 +50,18 @@ const Home = () => {
                     }
                 </div>
             </div>
-            {/* <div className='my-10'>
-                <h2 className='text-4xl'>Advertise</h2>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+            <div className='my-10'>
+                <h2 className='text-4xl text-pink-600 py-5 text-center font-semibold'>Advertise</h2>
+                {
+                    advertisements && <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                     {
-                        advertisement.map(advertise => <Advertise
+                        advertisements.map(advertise => <Advertise
                             key={advertise._id}
                             advertise={advertise}></Advertise>)
                     }
                 </div>
-            </div> */}
+                }
+            </div>
         </div>
     );
 };

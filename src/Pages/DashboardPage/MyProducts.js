@@ -15,7 +15,11 @@ const MyProducts = () => {
     const { isLoading, error, data:products } = useQuery({
         queryKey: ['products/email', user.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myproducts/${email}`);
+            const res = await fetch(`http://localhost:5000/myproducts/${email}`, {
+              headers: {
+                authorization : `bearer ${localStorage.getItem('accessToken')}`
+              }
+            });
             const data = await res.json();
             return data
         }
@@ -24,6 +28,7 @@ const MyProducts = () => {
       if (isLoading) return <progress className="progress w-56"></progress>
     
       if (error) return 'An error has occurred: ' + error.message
+
 
       const handleSetAdvertise = product =>{
         console.log(product)
@@ -43,6 +48,7 @@ const MyProducts = () => {
             // setDisable(true)
           })
       }
+
     
     return (
         <div className="overflow-x-auto w-full">

@@ -1,18 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
 
     const { register, handleSubmit } = useForm();
     const {login, googleLogin} = useContext(authContext);
+    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [token] = useToken(loginUserEmail);
     const navigate = useNavigate();
     const location = useLocation();
 
 
     const from = location.state?.from?.pathname || '/';
+
+    if(token){
+        navigate(from, { replace: true });
+    }
    
     const handleLogin = data =>{
         console.log(data)
@@ -20,8 +27,8 @@ const Login = () => {
         .then(result=>{
             const user = result.user;
             console.log(user)
+            setLoginUserEmail(data.email)
             toast.success('login successfully')
-            navigate(from, { replace: true });
         })
         .catch(err=>{
             console.error(err)
@@ -32,10 +39,30 @@ const Login = () => {
         googleLogin()
         .then(result=>{
             const user = result.user;
-            console.log(user)
+            console.log(user.displayName)
+            const googleUser = {account : 'buyer', name: user.displayName, email:user.email}
+            saveUserToDB(googleUser.displayName, googleUser.email, googleUser.account)
+            navigate(from, { replace: true });
         })
         .catch(err=>{
             console.error(err)
+        })
+    }
+
+    const saveUserToDB = (name, email, account) =>{
+        const user = {name, email, account};
+        console.log(user)
+        fetch('http://localhost:5000/users',{
+            method: 'POST',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(user)
+
+        })
+        .then(res=> res.json())
+        .then(data=>{
+            console.log(data)
         })
     }
 
@@ -45,7 +72,7 @@ const Login = () => {
             <h3 className='text-4xl'>Login Now</h3>
             <form onSubmit={handleSubmit(handleLogin)}>
                  <div className="form-control w-full max-w-xs">
-                    <label className="label"><span className="label-text">Name</span></label>
+                    <label className="label"><span className="label-text">Email</span></label>
                     <input type="email"  {...register("email")} placeholder="Type your email" className="input input-bordered w-full max-w-xs" />
                 </div>
 
