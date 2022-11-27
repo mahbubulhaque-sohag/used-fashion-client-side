@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
@@ -61,6 +62,9 @@ const AddProducts = () => {
             }
         })
     }
+
+
+
     return (
         <form className='my-10' onSubmit={handleSubmit(handleAddProducts)}>
                  <div className="form-control w-full max-w-xs">
@@ -69,6 +73,7 @@ const AddProducts = () => {
                 </div>
 
                 <div className="form-control w-full max-w-xs">
+       
                     <label className="label"><span className="label-text">Location</span></label>
                     <input type="text"  {...register("location")}  className="input input-bordered w-full max-w-xs" />
                 </div>

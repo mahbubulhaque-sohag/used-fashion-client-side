@@ -3,7 +3,7 @@ import React from 'react';
 
 const AllUsers = () => {
 
-    const {data : users = []} = useQuery({
+    const {data : users = [], isLoading} = useQuery({
         queryKey: ['users'],
         queryFn: async()=>{
             const res = await fetch('http://localhost:5000/users')
@@ -13,6 +13,9 @@ const AllUsers = () => {
     })
 
     console.log(users)
+
+    if(isLoading)return <progress className="progress w-56"></progress>;
+
     return (
         <div className="overflow-x-auto">
   <table className="table w-full">
@@ -20,8 +23,9 @@ const AllUsers = () => {
       <tr>
         <th></th>
         <th>Name</th>
+        <th>Email</th>
         <th>User Type</th>
-        <th></th>
+        {/* <th></th> */}
       </tr>
     </thead>
     <tbody>  
@@ -29,8 +33,9 @@ const AllUsers = () => {
             users.map((user, i)=>  <tr key={user._id} user={user}>
                 <th>{i+1}</th>
                 <td>{user.name}</td>
+                <td>{user.email}</td>
                 <td>{user.account}</td>
-                <td><button className="btn btn-ghost btn-xs" >Verify User</button></td>
+                {/* <td><button className="btn btn-ghost btn-xs" >Verify User</button></td> */}
               </tr>)
         }
      
