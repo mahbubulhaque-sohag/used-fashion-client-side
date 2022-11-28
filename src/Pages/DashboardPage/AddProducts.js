@@ -1,14 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthProvider';
+import useVerifiedSeller from '../../hooks/useVerifiedSeller';
 
 const AddProducts = () => {
     const { register, handleSubmit, data } = useForm();
     const {user} = useContext(authContext);
-    // console.log(user)
+
+    const [isVerifiedSeller] = useVerifiedSeller(user?.email)
+    const [verifiedSeller, setVerifiedSeller] = useState({});
     const navigate = useNavigate();
 
    const state={
@@ -42,6 +45,7 @@ const AddProducts = () => {
                     postDate: data.postDate,
                     sellerEmail: data.sellerEmail,
                     sellerName: data.sellerName,
+                    verifiedSymbol: data.status,
                     years_of_purchase: data.years_of_purchase }
                     console.log(product)
 
@@ -63,7 +67,14 @@ const AddProducts = () => {
         })
     }
 
-
+    useEffect( ()=>{
+        fetch(`http://localhost:5000/users/verifySeller/${user?.email}`)
+        .then(res => res.json())
+        .then(data=>{
+            console.log(data)
+            setVerifiedSeller(data.user)
+        })
+    } ,[user?.email])
 
     return (
         <form className='my-10' onSubmit={handleSubmit(handleAddProducts)}>
@@ -96,7 +107,18 @@ const AddProducts = () => {
                 </div>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Seller</span></label>
-                    <input type="text" defaultValue={user?.displayName} readOnly  {...register("sellerName")}  className="input input-bordered w-full max-w-xs" />
+                    {
+                        isVerifiedSeller ?  
+                        <>
+                        <input type="text" defaultValue={user?.displayName} readOnly  {...register("sellerName")}  className="input input-bordered w-full max-w-xs" />
+                        <input type="text" defaultValue={verifiedSeller?.symbol} readOnly  {...register("status")}  className="input input-bordered w-full max-w-xs" />
+                        </> 
+                        :
+                      <>
+                        <input type="text" defaultValue={user?.displayName} readOnly  {...register("sellerName")}  className="input input-bordered w-full max-w-xs" /> 
+                    </>
+                    }
+                   
                 </div>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Email</span></label>
@@ -114,7 +136,7 @@ const AddProducts = () => {
                     <select {...register("category")}>
                         <option value="Men's fashion">Men's fashion</option>
                         <option value="Ladies fashion">Ladies fashion</option>
-                        <option value="kid's fasion">kid's fasion</option>
+                        <option value="kid's fashion">kid's fasion</option>
                     </select>
                     </div>
 

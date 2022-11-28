@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { authContext } from '../../context/AuthProvider';
+import useVerifiedSeller from '../../hooks/useVerifiedSeller';
 
 const ProductCard = ({ product, setItem }) => {
 
-    const { Original_Price, Resell_Price, category, description, image, location, name, sellerEmail, sellerName, years_of_purchase, _id, postDate } = product;
+    const { Original_Price, Resell_Price, category, description, image, location, name, sellerEmail, sellerName, years_of_purchase, _id, postDate, verifiedSymbol } = product;
+
+    const {user} = useContext(authContext);
+
+    const [isVerifiedSeller] = useVerifiedSeller(user?.email)
 
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
@@ -13,7 +19,12 @@ const ProductCard = ({ product, setItem }) => {
                 <h3>Current Price: ${Resell_Price}</h3>
                 <h3>Year of purchase: {years_of_purchase}</h3>
                 <h3>location: {location}</h3>
-                <h3>Seller: {sellerName}</h3>
+                {
+                    isVerifiedSeller ? <h3>Seller: {sellerName} {verifiedSymbol}</h3>
+                    :
+                    <h3>Seller: {sellerName}</h3>
+                }
+                
                 <h3>Email: {sellerEmail}</h3>
                 <p>{description}</p>
                 <div className="card-actions">

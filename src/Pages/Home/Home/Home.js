@@ -9,7 +9,7 @@ import Categories from '../Categories/Categories';
 const Home = () => {
 
     const [categories, setcategories] = useState([]);
-    const { advertisement } = useContext(stateContext)
+    const { advertisement } = useContext(stateContext);
     console.log(advertisement)
 
     useEffect(() => {
@@ -17,8 +17,10 @@ const Home = () => {
             .then(res => {
                 // console.log(res.data);
                 setcategories(res.data)
+            
             })
     }, [])
+ 
 
 
     const { isLoading, error, data:advertisements } = useQuery({

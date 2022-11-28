@@ -17,12 +17,16 @@ const AllSellers = () => {
 
     const handleVerifySeller = id =>{
         fetch(`http://localhost:5000/sellers/verify/${id}`,{
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
         })
         .then(res => res.json())
         .then(data =>{
             console.log(data)
             if(data.modifiedCount > 0){
+                toast.success('Seller Verified Successfully')
                 refetch()
             }
         })
@@ -32,7 +36,10 @@ const AllSellers = () => {
         const agree = window.confirm(`Are you sure to delete: ${seller.name}`);
         if(agree){
             fetch(`http://localhost:5000/sellers/delete/${seller._id}`,{
-                method : 'DELETE'
+                method : 'DELETE',
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
             })
             .then(res => res.json())
             .then(data => {
