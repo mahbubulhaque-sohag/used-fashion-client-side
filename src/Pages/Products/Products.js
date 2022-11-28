@@ -5,8 +5,10 @@ import ProductCard from './ProductCard';
 
 const Products = () => {
     const location = useLocation()
-  const { from } = location.state;
-  const category = from.category;
+  // const { from } = location.state;
+  // const category = from?.category;
+  const category = location.state?.from?.category;
+  console.log(category)
 
   const [products, setProducts] = useState([]);
   const [item, setItem] = useState(null);
@@ -18,7 +20,7 @@ const Products = () => {
         console.log(data)
         setProducts(data)
       })
-    },[category])
+    },[category.categoryName])
 
     return (
         <div className='my-10'>
@@ -31,15 +33,16 @@ const Products = () => {
                     setItem={setItem}></ProductCard>)
                 }
             </div>
-            {
-              item && products.map(product=><BookingModal 
+            {/* {
+             products.map(product=><BookingModal 
               key={product._id}
               product={product}
               setProducts={setProducts}
               setItem={setItem}
               ></BookingModal>)
-            }
-            
+            } */}
+            {item && <BookingModal product={item}
+            setItem={setItem}></BookingModal>}
         </div>
     );
 };

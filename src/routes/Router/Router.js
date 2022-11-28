@@ -6,7 +6,9 @@ import AddProducts from '../../Pages/DashboardPage/AddProducts';
 import AllSellers from '../../Pages/DashboardPage/AllSellers';
 import AllUsers from '../../Pages/DashboardPage/AllUsers';
 import DashboardPage from '../../Pages/DashboardPage/DashboardPage';
+import MyBookings from '../../Pages/DashboardPage/MyBookings';
 import MyProducts from '../../Pages/DashboardPage/MyProducts';
+import Payments from '../../Pages/DashboardPage/Payments';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
 import Products from '../../Pages/Products/Products';
@@ -50,11 +52,11 @@ export const router = createBrowserRouter([
                 },
                 {
                     path: '/dashboard/addProducts',
-                    element: <AddProducts/>
+                    element: <SellerRoute><AddProducts/></SellerRoute>
                 },
                 {
                     path: '/dashboard/myProducts',
-                    element: <MyProducts/>
+                    element: <SellerRoute><MyProducts/></SellerRoute>
                 },
                 {
                     path: '/dashboard/users',
@@ -63,6 +65,15 @@ export const router = createBrowserRouter([
                 {
                     path: '/dashboard/sellers',
                     element: <AdminRoute><AllSellers/></AdminRoute>
+                },
+                {
+                    path: '/dashboard/myBookings',
+                    element: <MyBookings/>
+                },
+                {
+                    path: '/dashboard/payment/:id',
+                    element: <Payments/>,
+                    loader: ({params}) => fetch(`http://localhost:5000/booking/${params.id}`)
                 },
                ]         
             },

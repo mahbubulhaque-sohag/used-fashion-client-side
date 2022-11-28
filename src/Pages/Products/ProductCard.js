@@ -27,6 +27,9 @@ const ProductCard = ({ product, setItem }) => {
                 
                 <h3>Email: {sellerEmail}</h3>
                 <p>{description}</p>
+                {/* <div className="card-actions">
+                    <label  htmlFor="product-booking-modal" className="btn btn-secondary">Book Now</label>
+                </div> */}
                 <div className="card-actions">
                     <label onClick={()=>setItem(product)} htmlFor="product-booking-modal" className="btn btn-secondary">Book Now</label>
                 </div>
