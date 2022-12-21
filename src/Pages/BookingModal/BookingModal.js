@@ -20,7 +20,7 @@ const BookingModal = ({product,setItem }) => {
             location: event.target.location.value,
             phone: event.target.phone.value
         }
-        fetch('http://localhost:5000/bookings',{
+        fetch('https://mh-fashion-server-side.vercel.app/bookings',{
             method: 'POST',
             headers:{
                 'content-type' : 'application/json'

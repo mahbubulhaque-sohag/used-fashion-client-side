@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
                 {
                     path: '/dashboard/payment/:id',
                     element: <Payments/>,
-                    loader: ({params}) => fetch(`http://localhost:5000/booking/${params.id}`)
+                    loader: ({params}) => fetch(`https://mh-fashion-server-side.vercel.app/booking/${params.id}`)
                 },
                ]         
             },

@@ -1,13 +1,16 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import CheckOutForm from './CheckOutForm';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const Payments = () => {
     const booking = useLoaderData();
+    const navigation = useNavigation();
+
+    if(navigation.state === "loading") return <progress className="progress w-56"></progress>
 
     return (
         <div>
@@ -15,7 +18,7 @@ const Payments = () => {
             <p className="text-xl">Please pay <strong>${booking.price}</strong></p>
             <div className='w96 my-12 mr-12'>
                 <Elements stripe={stripePromise}>
-                    <CheckOutForm  
+                    <CheckOutForm
                     booking={booking}
                     />
                 </Elements>

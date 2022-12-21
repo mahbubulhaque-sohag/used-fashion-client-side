@@ -50,7 +50,7 @@ const AddProducts = () => {
                     console.log(product)
 
                     // save product information to the database
-                    fetch('http://localhost:5000/products',{
+                    fetch('https://mh-fashion-server-side.vercel.app/products',{
                         method: 'POST',
                         headers: {
                             'content-type' : 'application/json'
@@ -68,7 +68,7 @@ const AddProducts = () => {
     }
 
     useEffect( ()=>{
-        fetch(`http://localhost:5000/users/verifySeller/${user?.email}`)
+        fetch(`https://mh-fashion-server-side.vercel.app/users/verifySeller/${user?.email}`)
         .then(res => res.json())
         .then(data=>{
             console.log(data)

@@ -6,8 +6,8 @@ import { authContext } from '../../context/AuthProvider';
 import useToken from '../../hooks/useToken';
 
 const Login = () => {
-
-    const { register, handleSubmit } = useForm();
+    const [loginError, setLoginError] = useState('');
+    const { register,formState: { errors }, handleSubmit } = useForm();
     const {login, googleLogin} = useContext(authContext);
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
@@ -32,6 +32,7 @@ const Login = () => {
         })
         .catch(err=>{
             console.error(err)
+            setLoginError(err)
         })
     }
 
@@ -52,7 +53,7 @@ const Login = () => {
     const saveUserToDB = (name, email, account) =>{
         const user = {name, email, account};
         console.log(user)
-        fetch('http://localhost:5000/users',{
+        fetch('https://mh-fashion-server-side.vercel.app/users',{
             method: 'POST',
             headers: {
                 'content-type':'application/json'
@@ -73,12 +74,13 @@ const Login = () => {
             <form onSubmit={handleSubmit(handleLogin)}>
                  <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Email</span></label>
-                    <input type="email"  {...register("email")} placeholder="Type your email" className="input input-bordered w-full max-w-xs" />
+                    {/* <input type="email"  {...register("email")} placeholder="Type your email" className="input input-bordered w-full max-w-xs" /> */}
+                    <input type="email"  {...register("email", {required:'Email is required'})} placeholder="Type your email" className="input input-bordered w-full max-w-xs" />
                 </div>
 
                 <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Password</span></label>
-                    <input type="password"  {...register("password")} placeholder="Type your password" className="input input-bordered w-full max-w-xs" />
+                    <input type="password"  {...register("password", { required: 'Password should be at least 6 characters', minLength:{value:6, message: 'Password must be 6 characters or longer'} })} placeholder="Type a strong password" className="input input-bordered w-full max-w-xs" />
                 </div>
 
 
@@ -88,6 +90,11 @@ const Login = () => {
             <p className='mt-1'>New to this site? <Link className='text-blue-600/100' to='/register'>Register</Link></p>
             <p className='text-center'>or</p>
             <button onClick={handleGoogleLogin} className='btn btn-sm btn-primary mt-1 w-full'>Sign in with Google</button>
+             {/* show errors */}
+             {errors.password && <p className="text-red-400">{errors.password?.message}</p>}
+                    <input className='btn btn-sm btn-primary mt-6 w-full' value='Register' type="submit" />
+                    {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
+                    {loginError && <p className='text-red-600'>{loginError.message}</p>}
             </div>
         </div>
     );

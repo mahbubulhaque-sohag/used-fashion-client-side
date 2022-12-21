@@ -13,7 +13,7 @@ const Home = () => {
     console.log(advertisement)
 
     useEffect(() => {
-        axios('http://localhost:5000/categories')
+        axios('https://mh-fashion-server-side.vercel.app/categories')
             .then(res => {
                 // console.log(res.data);
                 setcategories(res.data)
@@ -26,7 +26,7 @@ const Home = () => {
     const { isLoading, error, data:advertisements } = useQuery({
         queryKey: ['advertisement',],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/advertisement`);
+            const res = await fetch(`https://mh-fashion-server-side.vercel.app/advertisement`);
             const data = await res.json();
             return data
         }

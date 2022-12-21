@@ -14,7 +14,7 @@ const Products = () => {
   const [item, setItem] = useState(null);
 
     useEffect( ()=>{
-      fetch(`http://localhost:5000/products/${category.categoryName}`)
+      fetch(`https://mh-fashion-server-side.vercel.app/products/${category.categoryName}`)
       .then(res=>res.json())
       .then(data=>{
         console.log(data)
@@ -24,8 +24,8 @@ const Products = () => {
 
     return (
         <div className='my-10'>
-            <h3 className='text-pink-500 text-4xl font-bold text-center mb-10 pb-5'>This are all products of {category.categoryName}</h3>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <h3 className='text-pink-500 text-4xl font-bold text-center mb-10 pb-5'>These are all products of {category.categoryName}</h3>
+            <div className='grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
                     products.map(product => <ProductCard
                     key={product._id}

@@ -10,7 +10,7 @@ const Advertise = ({advertise}) => {
                 <p>The original price is${Original_Price} and now you can buy it at {Resell_Price}</p>
             <p>Contact us: {sellerEmail}</p>
             </div>
-            <figure><img src={image} alt="Shoes" /></figure>
+            <figure><img className='h-60 w-full' src={image} alt="Shoes" /></figure>
         </div>
     );
 };

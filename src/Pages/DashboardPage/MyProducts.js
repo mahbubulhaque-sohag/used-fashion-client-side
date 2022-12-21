@@ -8,14 +8,13 @@ const MyProducts = () => {
     // const [disable, setDisable] = React.useState(false);
 
     const {email} = user;
-
     const {advertisement, setAdvertisement} = useContext(stateContext)
     
 
     const { isLoading, error, data:products } = useQuery({
-        queryKey: ['products/email', user.email],
+        queryKey: ['myproducts/email', email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myproducts/${email}`, {
+            const res = await fetch(`https://mh-fashion-server-side.vercel.app/myproducts/${email}`, {
               headers: {
                 authorization : `bearer ${localStorage.getItem('accessToken')}`
               }
@@ -24,7 +23,7 @@ const MyProducts = () => {
             return data
         }
       })
-    console.log(advertisement)
+    console.log(products)
       if (isLoading) return <progress className="progress w-56"></progress>
     
       if (error) return 'An error has occurred: ' + error.message
@@ -35,7 +34,7 @@ const MyProducts = () => {
        
         // const newAdvertise = [...advertisement, product]
         // setAdvertisement(newAdvertise)
-        fetch('http://localhost:5000/advertisment',{
+        fetch('https://mh-fashion-server-side.vercel.app/advertisment',{
           method: 'POST',
           headers: {
             'content-type' : 'application/json'
@@ -70,7 +69,7 @@ const MyProducts = () => {
          
                  <tbody>
            {
-            products.map(product =><tr  key={product._id} product={product} setAdvertisement={setAdvertisement}>
+            products?.map(product =><tr  key={product._id} product={product} setAdvertisement={setAdvertisement}>
                       <th>
                         <label>
                           <input type="checkbox" className="checkbox" />

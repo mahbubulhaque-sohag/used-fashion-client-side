@@ -6,7 +6,7 @@ const useVerifiedSeller = email =>{
 
     useEffect( ()=>{
         if(email){
-            fetch(`http://localhost:5000/users/verifySeller/${email}`)
+            fetch(`https://mh-fashion-server-side.vercel.app/users/verifySeller/${email}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)

@@ -11,10 +11,10 @@ const Register = () => {
     const [registerError, setRegisterError] = useState('');
     const [createdUserEmail,setCreatedUserEmail ] = useState('')
     const [token] = useToken(createdUserEmail);
-    const navigte = useNavigate();
+    const navigate = useNavigate();
 
     if(token){
-        navigte('/');
+        navigate('/');
     }
 
     const handleRegister = data => {
@@ -47,7 +47,7 @@ const Register = () => {
     const saveUserToDB = (name, email, account) =>{
         const user = {name, email, account};
         console.log(user)
-        fetch('http://localhost:5000/users',{
+        fetch('https://mh-fashion-server-side.vercel.app/users',{
             method: 'POST',
             headers: {
                 'content-type':'application/json'

@@ -6,7 +6,7 @@ const AllUsers = () => {
     const {data : users = [], isLoading} = useQuery({
         queryKey: ['users'],
         queryFn: async()=>{
-            const res = await fetch('http://localhost:5000/users')
+            const res = await fetch('https://mh-fashion-server-side.vercel.app/users')
             const data = await res.json();
             return data;
         }

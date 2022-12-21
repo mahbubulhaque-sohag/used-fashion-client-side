@@ -7,7 +7,7 @@ const AllSellers = () => {
     const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/sellers')
+            const res = await fetch('https://mh-fashion-server-side.vercel.app/sellers')
             const data = await res.json();
             return data;
         }
@@ -16,7 +16,7 @@ const AllSellers = () => {
     if(isLoading)return <progress className="progress w-56"></progress>;
 
     const handleVerifySeller = id =>{
-        fetch(`http://localhost:5000/sellers/verify/${id}`,{
+        fetch(`https://mh-fashion-server-side.vercel.app/sellers/verify/${id}`,{
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -35,7 +35,7 @@ const AllSellers = () => {
     const handleDeleteSeller = seller =>{
         const agree = window.confirm(`Are you sure to delete: ${seller.name}`);
         if(agree){
-            fetch(`http://localhost:5000/sellers/delete/${seller._id}`,{
+            fetch(`https://mh-fashion-server-side.vercel.app/sellers/delete/${seller._id}`,{
                 method : 'DELETE',
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`

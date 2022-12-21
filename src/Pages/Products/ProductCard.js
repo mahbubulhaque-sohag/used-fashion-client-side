@@ -12,7 +12,7 @@ const ProductCard = ({ product, setItem }) => {
 
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src={image} alt="products" /></figure>
+            <figure><img className='h-60 w-full' src={image} alt="products" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
                 <h3>Original Price: ${Original_Price}</h3>
