@@ -40,8 +40,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='flex'>
-                    <img src={logo} alt='website-logo' />
-                    <Link to='/' className="btn btn-ghost normal-case  font-bold text-4xl text-pink-600">Mh Fashion</Link>
+                    <img className='hidden md:block lg:block' src={logo} alt='website-logo' />
+                    <Link to='/' className="btn btn-ghost normal-case  font-bold sm:text-2xl md:text-4xl lg:text-4xl text-pink-600">Mh Fashion</Link>
                 </div>
             </div>
             <div className="navbar-center hidden lg:flex">
