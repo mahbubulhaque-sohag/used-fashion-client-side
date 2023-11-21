@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "mh-fashion-64c50"
-  }
+    "default": "mh-fashion-a5e42",
+    "firebase use staging": "mh-fashion-a5e42"
+  },
+  "targets": {},
+  "etags": {}
 }
